@@ -28,7 +28,7 @@ export interface LLMClientConfig<P extends LLMProvider> {
 	maxRetries?: number;
 	headers?: Record<string, string>;
 	queryParams?: Record<string, string>;
-	signal: AbortSignal;
+	signal?: AbortSignal;
 }
 
 export interface LLMMessageStreamParams<Provider extends LLMProvider> {
