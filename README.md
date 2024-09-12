@@ -1,7 +1,6 @@
 # LLM Chat API Wrapper
 
-```markdown
-# LLM Chat API Wrapper
+This ONLY uses fetch, so no extra dependencies are needed except for types, which will be inlined soon.
 
 This TypeScript library provides a unified interface for interacting with various Large Language Model (LLM) providers, including OpenAI, Anthropic, and Ollama. It offers a flexible and extensible way to integrate different LLM services into your applications.
 
@@ -24,25 +23,17 @@ bun install llm-chat-api-wrapper
 ```typescript
 import { createChatLLMWrapper } from 'llm-chat-api-wrapper';
 
-// Create a wrapper for OpenAI
-const openaiConfig: LLMClientConfig<'OPENAI'> = {
-	apiKey: 'your-api-key',
-	// ... other configuration options
-};
-
-const openaiWrapper = await createChatLLMWrapper('OPENAI', openaiConfig);
-
-// Stream completion
-const messages = [{ id: '1', role: 'user', content: 'Hello, AI!' }];
-const streamParams: LLMMessageStreamParams<'OPENAI'> = {
-	messages,
-	max_tokens: 100,
-	// ... other stream parameters
-};
+const llm = await createChatLLMWrapper('OPENAI' | 'ANTHROPIC' | ..., {
+    apiKey: 'your-api-key',
+    baseUrl: 'https://api.openai.com' | "http://localhost:11434",
+});
 
 for await (const chunk of openaiWrapper.streamCompletion(streamParams)) {
 	console.log(chunk);
 }
+
+// Only Streaming is supported for now.
+
 ```
 
 ## Supported Providers
@@ -56,11 +47,9 @@ for await (const chunk of openaiWrapper.streamCompletion(streamParams)) {
 
 To add a new provider:
 
-1. Create a new file in the `providers` directory (e.g., `newprovider.ts`)
-2. Implement the `LLMApi` interface for the new provider
-3. Add the new provider to the `LLMProvider` type and `createChatLLMWrapper` function
+Check /src/lib/chat/providers, and make a PR.
+Or ask me to add it.
 
 ## License
 
 This project is licensed under the MIT License.
-```
