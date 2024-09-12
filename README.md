@@ -1,4 +1,4 @@
-# LLM Chat API Wrapper
+# elelem.ts 🤖
 
 This ONLY uses fetch, so no extra dependencies are needed except for types, which will be inlined soon.
 
@@ -14,14 +14,14 @@ This TypeScript library provides a unified interface for interacting with variou
 ## Installation
 
 ```bash
-npm install llm-chat-api-wrapper
-bun install llm-chat-api-wrapper
+npm install elelem.ts
+bun install elelem.ts
 ```
 
 ## Usage
 
 ```typescript
-import { createChatLLMWrapper } from 'llm-chat-api-wrapper';
+import { createChatLLMWrapper } from 'elelem.ts';
 
 const llm = await createChatLLMWrapper('OPENAI' | 'ANTHROPIC' | ..., {
     apiKey: 'your-api-key',
