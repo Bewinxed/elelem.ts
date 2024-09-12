@@ -1,58 +1,66 @@
-# create-svelte
+# LLM Chat API Wrapper
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+```markdown
+# LLM Chat API Wrapper
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+This TypeScript library provides a unified interface for interacting with various Large Language Model (LLM) providers, including OpenAI, Anthropic, and Ollama. It offers a flexible and extensible way to integrate different LLM services into your applications.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Support for multiple LLM providers (OpenAI, Anthropic, Ollama)
+- Unified interface for streaming chat completions
+- Type-safe configurations for different providers
+- Extensible architecture for adding new providers
+
+## Installation
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm install llm-chat-api-wrapper
+bun install llm-chat-api-wrapper
 ```
 
-## Developing
+## Usage
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```typescript
+import { createChatLLMWrapper } from 'llm-chat-api-wrapper';
 
-```bash
-npm run dev
+// Create a wrapper for OpenAI
+const openaiConfig: LLMClientConfig<'OPENAI'> = {
+	apiKey: 'your-api-key',
+	// ... other configuration options
+};
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+const openaiWrapper = await createChatLLMWrapper('OPENAI', openaiConfig);
+
+// Stream completion
+const messages = [{ id: '1', role: 'user', content: 'Hello, AI!' }];
+const streamParams: LLMMessageStreamParams<'OPENAI'> = {
+	messages,
+	max_tokens: 100,
+	// ... other stream parameters
+};
+
+for await (const chunk of openaiWrapper.streamCompletion(streamParams)) {
+	console.log(chunk);
+}
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+## Supported Providers
 
-## Building
+- OpenAI
+- OpenAI-compatible services
+- Anthropic
+- Ollama
 
-To build your library:
+## Adding New Providers
 
-```bash
-npm run package
-```
+To add a new provider:
 
-To create a production version of your showcase app:
+1. Create a new file in the `providers` directory (e.g., `newprovider.ts`)
+2. Implement the `LLMApi` interface for the new provider
+3. Add the new provider to the `LLMProvider` type and `createChatLLMWrapper` function
 
-```bash
-npm run build
-```
+## License
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
+This project is licensed under the MIT License.
 ```
