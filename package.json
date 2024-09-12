@@ -1,6 +1,21 @@
 {
 	"name": "elelem.ts",
-	"version": "0.0.5",
+	"version": "0.0.6",
+	"repository": "https://github.com/Bewinxed/elelem.ts",
+	"keywords": [
+		"openai",
+		"anthropic",
+		"ollama",
+		"llm",
+		"chat",
+		"api",
+		"wrapper",
+		"typescript",
+		"elelem",
+		"elelem.ts",
+		"universal",
+		"unified"
+	],
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
